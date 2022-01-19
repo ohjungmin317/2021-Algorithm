@@ -1,9 +1,9 @@
 #include<stdio.h>
 
 
-float p[7] = { NULL, 0.05, 0.15, 0.05, 0.35, 0.05, 0.35 }; // °¢ index°ªÀÇ È®·ü
+float p[7] = { NULL, 0.05, 0.15, 0.05, 0.35, 0.05, 0.35 }; // ê° indexê°’ì˜ í™•ë¥ 
 
-float sum(int begin, int end) // Á¤ÇØÁø ±¸°£ÀÌ È®·üÀ» ´õÇÏ´Â ÇÔ¼ö
+float sum(int begin, int end) // ì •í•´ì§„ êµ¬ê°„ì´ í™•ë¥ ì„ ë”í•˜ëŠ” í•¨ìˆ˜
 {
 	float sum = 0;
 	for (int i = begin; i <= end; i++)
@@ -13,14 +13,14 @@ float sum(int begin, int end) // Á¤ÇØÁø ±¸°£ÀÌ È®·üÀ» ´õÇÏ´Â ÇÔ¼ö
 	return sum;
 }
 
-void optbinarysearchtree(int n, int** R) //optimal search binary tree¸¦ ±¸ÇÏ´Â ÇÔ¼ö
+void optbinarysearchtree(int n, int** R) //optimal search binary treeë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜
 {
 	int i, j, k, diagonal;
 	float** A = new float* [n + 2];
 	float min;
 	for (int s = 0; s < n + 2; s++)
 		A[s] = new float[n + 1];
-	// °è»ê ÇÏÁö ¾Ê´Â ±¸°£ Ã³¸®
+	// ê³„ì‚° í•˜ì§€ ì•ŠëŠ” êµ¬ê°„ ì²˜ë¦¬
 	for (i = 1; i <= n; i++)
 	{
 		A[i][i - 1] = 0;
@@ -39,7 +39,7 @@ void optbinarysearchtree(int n, int** R) //optimal search binary tree¸¦ ±¸ÇÏ´Â Ç
 	R[0][n] = 0;
 	R[n + 1][n] = 0;
 
-	// ±¸°£ º¯°æÇÏ°í ±¸°£ °£°İÀ» ´Ã·Á°¡¸é¼­ Æò±Õ Å½»ö È½¼ö°¡ ÃÖ¼ÒÀÎ ±¸°£ ±¸ÇÏ±â
+	// êµ¬ê°„ ë³€ê²½í•˜ê³  êµ¬ê°„ ê°„ê²©ì„ ëŠ˜ë ¤ê°€ë©´ì„œ í‰ê·  íƒìƒ‰ íšŸìˆ˜ê°€ ìµœì†Œì¸ êµ¬ê°„ êµ¬í•˜ê¸°
 
 	for (diagonal = 1; diagonal <= n - 1; diagonal++)
 	{
@@ -52,7 +52,7 @@ void optbinarysearchtree(int n, int** R) //optimal search binary tree¸¦ ±¸ÇÏ´Â Ç
 				if (min >= A[i][k - 1] + A[k + 1][j] + sum(i, j))
 				{
 					min = A[i][k - 1] + A[k + 1][j] + sum(i, j);
-					R[i][j] = k; // ÃÖ¼Ò °ªÀ» ÁÖ´Â °ª
+					R[i][j] = k; // ìµœì†Œ ê°’ì„ ì£¼ëŠ” ê°’
 				}
 			}
 			A[i][j] = min;
@@ -62,7 +62,7 @@ void optbinarysearchtree(int n, int** R) //optimal search binary tree¸¦ ±¸ÇÏ´Â Ç
 	{
 		for (int j = i; j <= n; j++)
 		{
-		printf("   [%d][%d]: %4.3f", i, j, A[i][j]); // Æò±Õ Å½»ö °ªÀ» ±â·ÏÇÑ °ª
+		printf("   [%d][%d]: %4.3f", i, j, A[i][j]); // í‰ê·  íƒìƒ‰ ê°’ì„ ê¸°ë¡í•œ ê°’
 		printf("\n");
 		
 		}
@@ -89,7 +89,7 @@ int main()
 	printf("----------------------\n");
 
 	printf("<R>\n");
-	for (int i = 1; i <= n; i++) //root ³ëµå °ªÀ» ±â·ÏÇÑ °ª
+	for (int i = 1; i <= n; i++) //root ë…¸ë“œ ê°’ì„ ê¸°ë¡í•œ ê°’
 	{
 		for (int j = i; j <= n; j++)
 		{
