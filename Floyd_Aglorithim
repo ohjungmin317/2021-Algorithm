@@ -1,7 +1,7 @@
 #include<stdio.h>
 #define V 7
-#define INF 99999 // INF ¼ö => ¹«ÇÑ´ë ¼ö ÃÊ±âÈ­ °ª Á¤ÀÇ
-const int W[V+1][V+1] = {{0,0,0,0,0,0,0}, // ¹®Á¦ 1 ~ 2¹ø 2Â÷¿ø ¹è¿­·Î ÀçÁ¤ÀÇ
+#define INF 99999 // INF ìˆ˜ => ë¬´í•œëŒ€ ìˆ˜ ì´ˆê¸°í™” ê°’ ì •ì˜
+const int W[V+1][V+1] = {{0,0,0,0,0,0,0}, // ë¬¸ì œ 1 ~ 2ë²ˆ 2ì°¨ì› ë°°ì—´ë¡œ ì¬ì •ì˜
 	{0,0,4,INF,INF,INF,10,INF},
 	{0,3,0,INF,18,INF,INF,INF},
 	{0,INF,6,0,INF,INF,INF,INF},
@@ -9,15 +9,15 @@ const int W[V+1][V+1] = {{0,0,0,0,0,0,0}, // ¹®Á¦ 1 ~ 2¹ø 2Â÷¿ø ¹è¿­·Î ÀçÁ¤ÀÇ
 	{0,INF,INF,12,1,0,INF,INF},
 	{0,INF,INF,INF,INF,INF,0,10},
 	{0,INF,INF,INF,8,INF,INF,0} 
-}; // ÇÃ·ÎÀÌµå Å½»ö 2Áß¹è¿­ ÃÊ±âÈ­
+}; // í”Œë¡œì´ë“œ íƒìƒ‰ 2ì¤‘ë°°ì—´ ì´ˆê¸°í™”
 
-int D[V+1][V+1]; // D martrix¼±¾ğ
-int P[V+1][V+1]; // p martrix¼±¾ğ
+int D[V+1][V+1]; // D martrixì„ ì–¸
+int P[V+1][V+1]; // p martrixì„ ì–¸
 
-void floyd(int n, const int (*W)[V+1], int (*D)[V+1], int (*P)[V+1]) {// floyd¶ó´Â º¯¼ö ÀÌ¸§À» °¡Áø ÇÔ¼ö¸¦ Á¤ÀÇ ÇØ¼­ ¼±¾ğ
+void floyd(int n, const int (*W)[V+1], int (*D)[V+1], int (*P)[V+1]) {// floydë¼ëŠ” ë³€ìˆ˜ ì´ë¦„ì„ ê°€ì§„ í•¨ìˆ˜ë¥¼ ì •ì˜ í•´ì„œ ì„ ì–¸
 
 	int i, j, k;
-	for (i = 1; i <= n; i++) // matrix P ÃÊ±âÈ­
+	for (i = 1; i <= n; i++) // matrix P ì´ˆê¸°í™”
 	{
 		for (j = 1; j <= n; j++)
 			P[i][j] = 0;
@@ -31,11 +31,11 @@ void floyd(int n, const int (*W)[V+1], int (*D)[V+1], int (*P)[V+1]) {// floyd¶ó
 	}
 	
 
-	for (k = 1; k <= n; k++) // °ÅÃÄ°¡´Â ³ëµå 
+	for (k = 1; k <= n; k++) // ê±°ì³ê°€ëŠ” ë…¸ë“œ 
 	{
-		for (i = 1; i <=n; i++) // Ãâ¹ßÇÏ´Â ³ëµå 
+		for (i = 1; i <=n; i++) // ì¶œë°œí•˜ëŠ” ë…¸ë“œ 
 		{
-			for (j = 1; j <=n; j++) // µµÂøÇÏ´Â ³ëµå
+			for (j = 1; j <=n; j++) // ë„ì°©í•˜ëŠ” ë…¸ë“œ
 			{
 				if (D[i][k] + D[k][j] < D[i][j]) {
 					P[i][j] = k;
@@ -46,9 +46,9 @@ void floyd(int n, const int (*W)[V+1], int (*D)[V+1], int (*P)[V+1]) {// floyd¶ó
 	}
 }
 
-void path(int q, int r) { // ÃÖ´Ü°æ·Î¸¦ º¸¿©ÁÖ´Â °ÍÀ» Ãâ·ÂÇÏ´Â ÇÔ¼ö 
+void path(int q, int r) { // ìµœë‹¨ê²½ë¡œë¥¼ ë³´ì—¬ì£¼ëŠ” ê²ƒì„ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ 
 	printf("path(%d,%d) =%d\n", q, r, P[q][r]);
-	if (P[q][r] != 0) { // °ÅÃÄ°¡´Â °æ·Î°¡ 0ÀÌ ¾Æ´Ò ¶§ path °ª Ãâ·Â
+	if (P[q][r] != 0) { // ê±°ì³ê°€ëŠ” ê²½ë¡œê°€ 0ì´ ì•„ë‹ ë•Œ path ê°’ ì¶œë ¥
 		path(q, P[q][r]);
 		printf("v%d \n", P[q][r]);
 		path(P[q][r], r);
@@ -57,11 +57,11 @@ void path(int q, int r) { // ÃÖ´Ü°æ·Î¸¦ º¸¿©ÁÖ´Â °ÍÀ» Ãâ·ÂÇÏ´Â ÇÔ¼ö
 }
 
 int main(void) {
-	floyd(V, W, D, P); //floyd ÇÔ¼ö È£Ãâ
+	floyd(V, W, D, P); //floyd í•¨ìˆ˜ í˜¸ì¶œ
 	printf("D\n");
 	for (int i = 1; i <= V; i++) {
 		for (int j = 1; j <= V; j++) {
-			printf("%3d ", D[i][j]); // D matrix Ãâ·Â
+			printf("%3d ", D[i][j]); // D matrix ì¶œë ¥
 		}
 		printf("\n");
 	}
@@ -73,7 +73,7 @@ int main(void) {
 
 	for (int i = 1; i <= V; i++) {
 		for (int j = 1; j <= V; j++) {
-			printf("%3d ", P[i][j]); // P matrix Ãâ·Â
+			printf("%3d ", P[i][j]); // P matrix ì¶œë ¥
 		}
 		printf("\n");
 	}
@@ -83,7 +83,7 @@ int main(void) {
 
 	printf("\n");
 
-	path(7,3); // path °ª ¼±¾ğ 7 ~ 3±îÁö °¡´Â °ª ¼±¾ğ
+	path(7,3); // path ê°’ ì„ ì–¸ 7 ~ 3ê¹Œì§€ ê°€ëŠ” ê°’ ì„ ì–¸
 
 	printf("\n");
 	return 0;
