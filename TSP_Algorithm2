@@ -1,27 +1,27 @@
-#pragma warning (disable: 4996) // scanf »ç¿ë½Ã ¿¡·¯ ¹æÁö
+#pragma warning (disable: 4996) // scanf ì‚¬ìš©ì‹œ ì—ëŸ¬ ë°©ì§€
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #define MAX 9999
 
-int TSP(int n, int** W, int** D, int i, int A, int** P) {//D[i][A] °ªÀ» ±¸ÇØ¼­ ¸®ÅÏÇÏ´Â ÇÔ¼ö
+int TSP(int n, int** W, int** D, int i, int A, int** P) {//D[i][A] ê°’ì„ êµ¬í•´ì„œ ë¦¬í„´í•˜ëŠ” í•¨ìˆ˜
 	int m;
 	int min = MAX;
 	int temp;
 
-	if (A == 0) { //A°¡ °øÁıÇÕÀÏ ¶§
+	if (A == 0) { //Aê°€ ê³µì§‘í•©ì¼ ë•Œ
 		return W[i][1];
 	}
-	else { //A°¡ °øÁıÇÕÀÌ ¾Æ´Ò ¶§
+	else { //Aê°€ ê³µì§‘í•©ì´ ì•„ë‹ ë•Œ
 		for (m = 0; m <= n - 2; ++m) {
 
-			//A°¡ 1ÀÎ °÷À» Ã£¾Æ ¾Ë°í¸®ÁòÀ» ½ÇÇà
+			//Aê°€ 1ì¸ ê³³ì„ ì°¾ì•„ ì•Œê³ ë¦¬ì¦˜ì„ ì‹¤í–‰
 			if ((1 << m) & A) {
 				temp = W[i][m + 2] + TSP(n, W, D, m + 2, A - (1 << m), P);
 				if (min > temp) {
 					min = temp;
 
-					//P[i][A] = 2°³ÀÇ °ªÀÌ ³ª¿ÔÀ» ¶§ ÃÖ¼Ò°ªÀ» ÀúÀå
+					//P[i][A] = 2ê°œì˜ ê°’ì´ ë‚˜ì™”ì„ ë•Œ ìµœì†Œê°’ì„ ì €ì¥
 					P[i][A] = m + 2;
 				}
 			}
@@ -33,53 +33,53 @@ int TSP(int n, int** W, int** D, int i, int A, int** P) {//D[i][A] °ªÀ» ±¸ÇØ¼­ ¸
 int main() {
 
 	int i, j;
-	int n; // Á¤Á¡ÀÇ °¹¼ö
+	int n; // ì •ì ì˜ ê°¯ìˆ˜
 	int inf = MAX;
-	// inf MAX °ªÀ¸·Î ¹İÈ¯
+	// inf MAX ê°’ìœ¼ë¡œ ë°˜í™˜
 
 
-	printf("n°ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä: ");
+	printf("nê°’ì„ ì…ë ¥í•´ì£¼ì„¸ìš”: ");
 	scanf("%d", &n);
 
-	int** W = (int**)malloc(sizeof(int*) * (n + 1)); // W martrixÀÇ °ª 
+	int** W = (int**)malloc(sizeof(int*) * (n + 1)); // W martrixì˜ ê°’ 
 	for (i = 0; i <= n; ++i)
 		W[i] = (int*)malloc(sizeof(int) * (n + 1));
 
 	int** D = (int**)malloc(sizeof(int*) * (n + 1));
 	for (i = 0; i <= n; ++i)
 		D[i] = (int*)malloc(sizeof(int) * (1 << n));
-	//bit ¿¬»êÀÚ¸¦ ÀÌ¿ëÇÏ¿© °ø°£À» È®º¸ ÇÑ ÈÄ °è»ê
+	//bit ì—°ì‚°ìë¥¼ ì´ìš©í•˜ì—¬ ê³µê°„ì„ í™•ë³´ í•œ í›„ ê³„ì‚°
 
 	int** P = (int**)malloc(sizeof(int*) * (n + 1));
 	for (i = 0; i <= n; ++i)
 		P[i] = (int*)malloc(sizeof(int) * (1 << n));
 
 	printf("\n");
-	printf("matrix °ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+	printf("matrix ê°’ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 
 	for (i = 1; i <= n; ++i) {
 		for (j = 1; j <= n; ++j) {
-			scanf("%d", &W[i][j]); // ¹è¿­ °ª ÀÔ·Â
+			scanf("%d", &W[i][j]); // ë°°ì—´ ê°’ ì…ë ¥
 		}
 		printf("\n");
 	}
 
 	
-	//A´Â ¾ÕÀ¸·Î ¹æ¹®ÇØ¾ßÇÒ Á¤Á¡ÀÇ ÁıÇÕ
+	//AëŠ” ì•ìœ¼ë¡œ ë°©ë¬¸í•´ì•¼í•  ì •ì ì˜ ì§‘í•©
 	
 	int A = 0;
 	for (i = 0; i <= n - 2; ++i) {
 		A += (1 << i);
 	}
 
-	//Length = D[1][V - {v1}]¿¡ ´ëÇÑ °è»ê 
+	//Length = D[1][V - {v1}]ì— ëŒ€í•œ ê³„ì‚° 
 	int Length = TSP(n, W, D, 1, A, P);
 	int path;
 
-	//ÃÖ¼Ò°æ·Î Ãâ·Â
+	//ìµœì†Œê²½ë¡œ ì¶œë ¥
 	printf("\n");
 	printf("------------------------------\n");
-	printf("ÃÖ¼Ò°æ·Î: v1 -> ");
+	printf("ìµœì†Œê²½ë¡œ: v1 -> ");
 
 	path = P[1][A];
 	printf("v%d -> ", path);
@@ -88,10 +88,10 @@ int main() {
 		path = P[path][A];
 		printf("v%d -> ", path);
 	}
-	//ÃÖ¼Ò°æ·Î °ª Ãâ·Â 
+	//ìµœì†Œê²½ë¡œ ê°’ ì¶œë ¥ 
 	printf("v1\n");
 	printf("\n");
-	printf("ÃÖ¼Ò°æ·ÎÀÇ ±æÀÌ´Â %dÀÔ´Ï´Ù.\n", Length);
+	printf("ìµœì†Œê²½ë¡œì˜ ê¸¸ì´ëŠ” %dì…ë‹ˆë‹¤.\n", Length);
 
 	return 0;
 }
