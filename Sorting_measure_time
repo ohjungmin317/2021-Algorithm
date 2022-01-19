@@ -170,80 +170,80 @@ void heapSort(float arr[], int size) {
 
 int main() {
 
-	clock_t start_time, end_time; // ½ÇÇà½Ã°£À» ÃøÁ¤ÇÏ±â À§ÇÑ º¯¼ö
+	clock_t start_time, end_time; // ì‹¤í–‰ì‹œê°„ì„ ì¸¡ì •í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 	float arr[MAX], insertion_arr[MAX], bubble_arr[MAX], selection_arr[MAX],
 		merge_arr[MAX], quick_arr[MAX], heap_arr[MAX], res_time;
 
-	printf("³­¼ö :"); // ³­¼ö »ı¼º
-	for (int i = 0; i < MAX; i++) { //³­¼ö °ªÀ» arr¿¡ ³Ö¾îÁØ´Ù.
-		arr[i] = rand() % 100 / 100.0 + rand() % 2 - 1; //rand()°ª¿¡ °°Àº Seed °ªÀ» ÁÖ¾î¼­ °°Àº ·£ °ªÀÌ »ı¼ºµÇµµ·Ï <-1 ~ 1 »çÀÌÀÇ ·£´ı °ª>
+	printf("ë‚œìˆ˜ :"); // ë‚œìˆ˜ ìƒì„±
+	for (int i = 0; i < MAX; i++) { //ë‚œìˆ˜ ê°’ì„ arrì— ë„£ì–´ì¤€ë‹¤.
+		arr[i] = rand() % 100 / 100.0 + rand() % 2 - 1; //rand()ê°’ì— ê°™ì€ Seed ê°’ì„ ì£¼ì–´ì„œ ê°™ì€ ëœ ê°’ì´ ìƒì„±ë˜ë„ë¡ <-1 ~ 1 ì‚¬ì´ì˜ ëœë¤ ê°’>
 		printf(" %.3f", arr[i]);
 	}
 	printf("\n\n");
-	printf("NÀÇ °ª = %d\n", sizeof(arr) / sizeof(arr[MAX]));
+	printf("Nì˜ ê°’ = %d\n", sizeof(arr) / sizeof(arr[MAX]));
 	printf("\n\n");
 
-	for (int i = 0; i < MAX; i++) { //selection_arr¿¡ ³Ö¾îÁÜ
+	for (int i = 0; i < MAX; i++) { //selection_arrì— ë„£ì–´ì¤Œ
 		selection_arr[i] = arr[i];
 	}
-	printf("¼±ÅÃÁ¤·Ä : \n");
-	start_time = clock(); // selection Á¤·Ä ½ÃÀÛ½Ã°£
+	printf("ì„ íƒì •ë ¬ : \n");
+	start_time = clock(); // selection ì •ë ¬ ì‹œì‘ì‹œê°„
 	selection_sort(selection_arr);
-	end_time = clock(); // selection Á¤·Ä Á¾·á½Ã°£
-	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // ¼±ÅÃÁ¤·Ä ½ÇÇà½Ã°£À» Ãâ·Â
+	end_time = clock(); // selection ì •ë ¬ ì¢…ë£Œì‹œê°„
+	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // ì„ íƒì •ë ¬ ì‹¤í–‰ì‹œê°„ì„ ì¶œë ¥
 	printf("***** time : %f ******\n\n", res_time);
 
 
-	for (int i = 0; i < MAX; i++) { //bubble_arr¿¡ ³Ö¾îÁÜ
+	for (int i = 0; i < MAX; i++) { //bubble_arrì— ë„£ì–´ì¤Œ
 		bubble_arr[i] = arr[i];
 	}
-	printf("¹öºíÁ¤·Ä : \n");
-	start_time = clock(); //bubble Á¤·Ä ½ÃÀÛ½Ã°£
+	printf("ë²„ë¸”ì •ë ¬ : \n");
+	start_time = clock(); //bubble ì •ë ¬ ì‹œì‘ì‹œê°„
 	bubble_sort(bubble_arr);
-	end_time = clock(); // bubble Á¤·Ä Á¾·á½Ã°£
-	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // ¹öºíÁ¤·Ä ½ÇÇà½Ã°£À» Ãâ·Â
+	end_time = clock(); // bubble ì •ë ¬ ì¢…ë£Œì‹œê°„
+	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // ë²„ë¸”ì •ë ¬ ì‹¤í–‰ì‹œê°„ì„ ì¶œë ¥
 	printf("***** time : %f ******\n\n", res_time);
 
-	for (int i = 0; i < MAX; i++) { // insertion_arr¿¡ ³Ö¾îÁÜ
+	for (int i = 0; i < MAX; i++) { // insertion_arrì— ë„£ì–´ì¤Œ
 		insertion_arr[i] = arr[i];
 	}
-	printf("»ğÀÔÁ¤·Ä : \n");
-	start_time = clock(); // insertion Á¤·Ä ½ÃÀÛ½Ã°£
+	printf("ì‚½ì…ì •ë ¬ : \n");
+	start_time = clock(); // insertion ì •ë ¬ ì‹œì‘ì‹œê°„
 	insertion_sort(insertion_arr);
-	end_time = clock(); // insertion Á¤·Ä Á¾·á½Ã°£
-	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // »ğÀÔÁ¤·Ä ½ÇÇà½Ã°£À» Ãâ·Â
+	end_time = clock(); // insertion ì •ë ¬ ì¢…ë£Œì‹œê°„
+	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // ì‚½ì…ì •ë ¬ ì‹¤í–‰ì‹œê°„ì„ ì¶œë ¥
 	printf("***** time : %f ******\n\n", res_time);
 
 
 
-	for (int i = 0; i < MAX; i++) { // merge_arr¿¡ ³Ö¾îÁÜ
+	for (int i = 0; i < MAX; i++) { // merge_arrì— ë„£ì–´ì¤Œ
 		merge_arr[i] = arr[i];
 	}
-	printf("º´ÇÕÁ¤·Ä : \n");
-	start_time = clock(); //merge Á¤·Ä ½ÃÀÛ½Ã°£
+	printf("ë³‘í•©ì •ë ¬ : \n");
+	start_time = clock(); //merge ì •ë ¬ ì‹œì‘ì‹œê°„
 	merge_sort(arr, 0, MAX - 1, merge_arr);
-	end_time = clock(); //merge Á¤·Ä Á¾·á½Ã°£
-	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // º´ÇÕÁ¤·Ä ½ÇÇà½Ã°£À» Ãâ·Â
+	end_time = clock(); //merge ì •ë ¬ ì¢…ë£Œì‹œê°„
+	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // ë³‘í•©ì •ë ¬ ì‹¤í–‰ì‹œê°„ì„ ì¶œë ¥
 	printf("***** time : %f ******\n\n", res_time);
 
-	for (int i = 0; i < MAX; i++) { //quick_arr¿¡ ³Ö¾îÁÜ
+	for (int i = 0; i < MAX; i++) { //quick_arrì— ë„£ì–´ì¤Œ
 		quick_arr[i] = arr[i];
 	}
-	printf("ÄüÁ¤·Ä : \n");
-	start_time = clock(); // quick Á¤·Ä ½ÃÀÛ½Ã°£
+	printf("í€µì •ë ¬ : \n");
+	start_time = clock(); // quick ì •ë ¬ ì‹œì‘ì‹œê°„
 	quick_sort(quick_arr, 0, MAX - 1);
-	end_time = clock(); // quick Á¤·Ä Á¾·á½Ã°£
-	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // ÄüÁ¤·Ä ½ÇÇà½Ã°£À» Ãâ·ÂÇÔ
+	end_time = clock(); // quick ì •ë ¬ ì¢…ë£Œì‹œê°„
+	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // í€µì •ë ¬ ì‹¤í–‰ì‹œê°„ì„ ì¶œë ¥í•¨
 	printf("***** time : %f ******\n\n", res_time);
 
-	for (int i = 0; i < MAX; i++) { //heap_arr¿¡ ³Ö¾îÁÜ
+	for (int i = 0; i < MAX; i++) { //heap_arrì— ë„£ì–´ì¤Œ
 		heap_arr[i] = arr[i];
 	}
-	printf("ÈüÁ¤·Ä : \n");
-	start_time = clock(); // heap Á¤·Ä ½ÃÀÛ½Ã°£
+	printf("í™ì •ë ¬ : \n");
+	start_time = clock(); // heap ì •ë ¬ ì‹œì‘ì‹œê°„
 	heapSort(heap_arr, MAX);
-	end_time = clock(); // heap Á¤·Ä Á¾·á½Ã°£
-	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // ÈüÁ¤·Ä ½ÇÇà½Ã°£À» Ãâ·ÂÇÔ
+	end_time = clock(); // heap ì •ë ¬ ì¢…ë£Œì‹œê°„
+	res_time = (float)(end_time - start_time) / CLOCKS_PER_SEC; // í™ì •ë ¬ ì‹¤í–‰ì‹œê°„ì„ ì¶œë ¥í•¨
 	printf("***** time : %f ******\n\n", res_time);
 
 
