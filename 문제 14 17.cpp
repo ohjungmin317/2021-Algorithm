@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<iostream>
+#include<set>
+#include<time.h>
+using namespace std;
+bool promising(int i, int weight, int total, int W, int* w);
+int estimate(int n, int W, int* w);
+int main(void) {
+	int w[7]; // 1 ~ 6까지 변수 값을 넣는 배열
+	int total = 0; // 전체 횟수 더해주는 변수 0으로 초기화
+	int estimate_value = 0; // return 값 저장해주려는 변수
+	srand(time(NULL)); // 랜덤값을 주기 위해
+	w[0] = 0, w[1] = 2, w[2] = 10, w[3] = 13, w[4] = 17, w[5] = 22, w[6] = 42;
+	printf("문제 14번 17번\n");
+	printf("\n");
+	for (int i = 0; i < 20; i++) { // 20번 시행 하기 위해 for문 돌리기
+		estimate_value = estimate(6, 52, w);
+		total += estimate_value;
+		printf("%d번째 시행 : %d\n", i + 1, estimate_value);
+	}
+	printf("\n");
+	printf("\n");
+	printf("평균 : %d", total / 20);
+
+
+}
+int estimate(int n, int W, int* w) { // Monte Carlo 이용하기 위한 함수
+	int weight = 0; // 현재 위치에 대한 값의 변수 
+	int total = 0;
+	int i, flag;
+	int m, mprod, numnodes;//유망한 자식의 수 + 그 라인에 있는 유망한 노드의 수 + 거쳐간 노드의 수
+	set<int> child;
+	set<int> ::iterator it;
+	i = 0; numnodes = 1; m = 1; mprod = 1;
+	for (int i = 1; i < n + 1; i++) {
+		total += w[i];
+	}
+
+	while (m != 0 && i != n) { // 유망한 노드가 없거나 n값이 조건에 다 만족을 하지 않으면 그때  whlie문을 실행
+		mprod = mprod * m;
+		numnodes = numnodes + mprod * 2;
+		i++;
+		m = 0;
+		child.clear();
+
+		if (promising(i, weight + w[i], total - w[i], W, w)) { // 왼쪽 자식이 유망할 때
+			m++;
+			child.insert(0);
+		}
+		if (promising(i, weight, total - w[i], W, w)) { // 오른쪽 자식이 유망할 때
+			m++;
+			child.insert(1);
+		}
+		if (m != 0) { // 자식이 둘다 유망할 때 
+			it = child.begin();
+			int childrand = rand() % child.size(); // 그 중에서 랜덤으로 해서 값을 들어가게 해준다.
+			for (int i = 0; i < childrand; i++) {
+				it++;
+			}
+			flag = *it;
+			if (!flag) { // 자식이 둘다 유망하지 않을 때 값을 넣어주지 않는다
+				weight = weight + w[i];
+			}
+
+			total = total - w[i];
+		}
+		child.clear();
+	}
+	return numnodes; // 위 값을 계속 반복 
+}
+bool promising(int i, int weight, int total, int W, int* w) { // 유망한 자식인지 확인하기 위한 함수
+	return ((weight + total) >= W) && ((weight == W) || (weight + w[i + 1] <= W));
+}
