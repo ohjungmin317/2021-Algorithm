@@ -8,7 +8,7 @@ int w[5] = { 2,12,42,10,7};
 int W = 52;
 int x[5] = { 0, };
 
-int promising(int i, int col[]) { // n-queen¿¡ ´ëÇÑ promisingÇÔ¼ö
+int promising(int i, int col[]) { // n-queenì— ëŒ€í•œ promisingí•¨ìˆ˜
     int k;
     int bswitch;
 
@@ -23,11 +23,11 @@ int promising(int i, int col[]) { // n-queen¿¡ ´ëÇÑ promisingÇÔ¼ö
     return bswitch;
 }
 
-int estimate_n_queens(int n, int col[]) { // monte carlo¸¦ »ç¿ëÇÏ´Â ÇÔ¼ö
+int estimate_n_queens(int n, int col[]) { // monte carloë¥¼ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
     int i, j, z;
     int m, mprod, numnodes;
 
-    int* prom_children = (int*)calloc(n + 1, sizeof(int)); // ÀÚ½Ä ³ëµå °ª¿¡ rand °ª ¼±¾ğ
+    int* prom_children = (int*)calloc(n + 1, sizeof(int)); // ìì‹ ë…¸ë“œ ê°’ì— rand ê°’ ì„ ì–¸
 
     int index = 0;
     int flag = 0;
@@ -37,7 +37,7 @@ int estimate_n_queens(int n, int col[]) { // monte carlo¸¦ »ç¿ëÇÏ´Â ÇÔ¼ö
     m = 1;
     mprod = 1;
 
-    while (m != 0 && i != n) { // À¯¸ÁÇÑ ³ëµå°¡ ¾ø°Å³ª n°ªÀÌ Á¶°Ç¿¡ ´Ù ¸¸Á·À» ÇÏÁö ¾ÊÀ¸¸é ±×¶§  whlie¹®À» ½ÇÇà
+    while (m != 0 && i != n) { // ìœ ë§í•œ ë…¸ë“œê°€ ì—†ê±°ë‚˜ nê°’ì´ ì¡°ê±´ì— ë‹¤ ë§Œì¡±ì„ í•˜ì§€ ì•Šìœ¼ë©´ ê·¸ë•Œ  whlieë¬¸ì„ ì‹¤í–‰
         mprod = mprod * m;
         numnodes = numnodes + mprod * n;
         i++;
@@ -47,21 +47,21 @@ int estimate_n_queens(int n, int col[]) { // monte carlo¸¦ »ç¿ëÇÏ´Â ÇÔ¼ö
             prom_children[z] = 0;
         for (j = 1; j <= n; j++) {
             col[i] = j;
-            if (promising(i, col)) { // À¯¸ÁÇÑ ÀÚ½Ä³ëµå°¡ ¿ŞÂÊ¿¡ ÀÖÀ» °æ¿ì
+            if (promising(i, col)) { // ìœ ë§í•œ ìì‹ë…¸ë“œê°€ ì™¼ìª½ì— ìˆì„ ê²½ìš°
                 m++;
                 for (z = 1; z <= n; z++)
-                    if (prom_children[z] == 0) { // À¯¸ÁÇÑ ÀÚ½Ä ³ëµå°¡ ¿À¸¥ÂÊ¿¡ ÀÖÀ» °æ¿ì
+                    if (prom_children[z] == 0) { // ìœ ë§í•œ ìì‹ ë…¸ë“œê°€ ì˜¤ë¥¸ìª½ì— ìˆì„ ê²½ìš°
                         prom_children[z] = j;
                         break;
                     }
             }
         }
-        if (m != 0) { // À¯¸ÁÇÑ ÀÚ½Ä ³ëµå°¡ ¿À¸¥ÂÊ ¿ŞÂÊ µÑ´Ù ÀÖÀ» °æ¿ì
+        if (m != 0) { // ìœ ë§í•œ ìì‹ ë…¸ë“œê°€ ì˜¤ë¥¸ìª½ ì™¼ìª½ ë‘˜ë‹¤ ìˆì„ ê²½ìš°
             for (z = 1; z <= n; z++) {
                 if (prom_children[z] != 0)
                     index++;
             }
-            flag = (rand() % index) + 1; // rand°ªÀ» µ¹·Á ¿À¸¥ÂÊ ¿ŞÂÊ ·£´ı°ªÀ» ¼±ÅÃÇÏ°Ô µÈ´Ù.
+            flag = (rand() % index) + 1; // randê°’ì„ ëŒë ¤ ì˜¤ë¥¸ìª½ ì™¼ìª½ ëœë¤ê°’ì„ ì„ íƒí•˜ê²Œ ëœë‹¤.
 
             j = prom_children[flag];
 
@@ -69,11 +69,11 @@ int estimate_n_queens(int n, int col[]) { // monte carlo¸¦ »ç¿ëÇÏ´Â ÇÔ¼ö
             index = 0;
         }
     }
-    return numnodes; // numnodes°ªÀ» ¹İÈ¯ÇÏ¿© À§ °úÁ¤À» ¹İº¹ÇÏ°Ô ÇÑ´Ù.
+    return numnodes; // numnodesê°’ì„ ë°˜í™˜í•˜ì—¬ ìœ„ ê³¼ì •ì„ ë°˜ë³µí•˜ê²Œ í•œë‹¤.
 }
 
 
-void nqueen_mont() { // n-queenÀ» monte carlo¸¦ ÀÌ¿ëÇÑ °ÍÀ» Ãâ·Â 
+void nqueen_mont() { // n-queenì„ monte carloë¥¼ ì´ìš©í•œ ê²ƒì„ ì¶œë ¥ 
     int i, * col;
     int n = 8;
     srand((unsigned)time(NULL));
@@ -84,27 +84,27 @@ void nqueen_mont() { // n-queenÀ» monte carlo¸¦ ÀÌ¿ëÇÑ °ÍÀ» Ãâ·Â
     col = (int*)calloc(n + 1, sizeof(int));
     for (i = 0; i < 20; i++) {
         mon[i] = estimate_n_queens(n, col);
-        printf("%d¹øÂ° ½Ãµµ : %d\n", i + 1, mon[i]);
+        printf("%dë²ˆì§¸ ì‹œë„ : %d\n", i + 1, mon[i]);
         avg += mon[i];
     }
     printf("\n");
-    printf("Æò±Õ°ª : %d\n", avg / 20); // 20¹ø ÀÓÀÇÃßÃâÀ» ÇÏ´Â °ÍÀÌ±â ¶§¹®¿¡ 20°³·Î ³ª´²¼­ Æò±ÕÀ» °è»ê
+    printf("í‰ê· ê°’ : %d\n", avg / 20); // 20ë²ˆ ì„ì˜ì¶”ì¶œì„ í•˜ëŠ” ê²ƒì´ê¸° ë•Œë¬¸ì— 20ê°œë¡œ ë‚˜ëˆ ì„œ í‰ê· ì„ ê³„ì‚°
     printf("\n");
 
     free(col);
 }
 
-bool promising1(int i, int weight, int total) { // sum of subsets¿¡ ´ëÇÑ promising ÇÔ¼ö 
-    if (weight + total >= W && (weight == W || weight + w[i + 1] <= W)) // °Ë»çÇÏ´Â ³ëµå°¡ À¯¸ÁÇÑÁö ¾Æ´ÑÁö¸¦ È®ÀÎ 
+bool promising1(int i, int weight, int total) { // sum of subsetsì— ëŒ€í•œ promising í•¨ìˆ˜ 
+    if (weight + total >= W && (weight == W || weight + w[i + 1] <= W)) // ê²€ì‚¬í•˜ëŠ” ë…¸ë“œê°€ ìœ ë§í•œì§€ ì•„ë‹Œì§€ë¥¼ í™•ì¸ 
         return 1;
     else
         return 0;
-    //weight ÀÌµ¿ÇÑ °¡ÁöµéÀº °¡ÁßÄ¡¸¦ ´õÇØ¼­ °è»êÇÏ´Â º¯¼ö
-   //total: °¡ÁöÄ¡±â¿¡ È°¿ëÇÏ±â À§ÇØ¼­ ÁıÇÕ wÀÇ ¸ğµç ¿ø¼Ò ÇÕÀ» ÀúÀåÇÏ´Â º¯¼ö
+    //weight ì´ë™í•œ ê°€ì§€ë“¤ì€ ê°€ì¤‘ì¹˜ë¥¼ ë”í•´ì„œ ê³„ì‚°í•˜ëŠ” ë³€ìˆ˜
+   //total: ê°€ì§€ì¹˜ê¸°ì— í™œìš©í•˜ê¸° ìœ„í•´ì„œ ì§‘í•© wì˜ ëª¨ë“  ì›ì†Œ í•©ì„ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
 
 }
 
-void print() { // °á°ú°ª°ú °úÁ¤À» Ãâ·ÂÇÏ´Â ÇÔ¼ö 
+void print() { // ê²°ê³¼ê°’ê³¼ ê³¼ì •ì„ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ 
     int i;
     for (i = 0; i < 5; i++) {
         if (x[i] != 0) {
@@ -114,7 +114,7 @@ void print() { // °á°ú°ª°ú °úÁ¤À» Ãâ·ÂÇÏ´Â ÇÔ¼ö
     printf("\n");
 }
 
-void sum_of_subset_cal(int i, int weight, int total) { //sum of subsets¿¡ ´ëÇØ »óÅÂ°ø°£Æ®¸®¿¡¼­ À¯¸ÁÇÑÁö ¾Æ´ÑÁö¸¦ È®ÀÎÇÏ¿©¼­ ¸ÂÀ¸¸é °ªÀ» ¼±ÅÃÇÏ°í ¾Æ´Ï¸é ´Ù½Ã µÇµ¹¾Æ°¡´Â ÇÔ¼ö
+void sum_of_subset_cal(int i, int weight, int total) { //sum of subsetsì— ëŒ€í•´ ìƒíƒœê³µê°„íŠ¸ë¦¬ì—ì„œ ìœ ë§í•œì§€ ì•„ë‹Œì§€ë¥¼ í™•ì¸í•˜ì—¬ì„œ ë§ìœ¼ë©´ ê°’ì„ ì„ íƒí•˜ê³  ì•„ë‹ˆë©´ ë‹¤ì‹œ ë˜ëŒì•„ê°€ëŠ” í•¨ìˆ˜
     if (promising1(i, weight, total)) {
         if (W == weight)
             print();
@@ -127,11 +127,11 @@ void sum_of_subset_cal(int i, int weight, int total) { //sum of subsets¿¡ ´ëÇØ »
     }
 }
 
-void sum_of_subset() { // sum of subsetÀÇ °ªÀ» º¸¿©ÁÖ´Â ÇÔ¼ö
+void sum_of_subset() { // sum of subsetì˜ ê°’ì„ ë³´ì—¬ì£¼ëŠ” í•¨ìˆ˜
     int num;
     int total = 0;
     int i;
-    printf("W = 52 ÀÏ¶§ sum_of_subset °ªÀº:\n");
+    printf("W = 52 ì¼ë•Œ sum_of_subset ê°’ì€:\n");
 
     for (i = 0; i < 5; i++) {
         total += w[i];
@@ -141,13 +141,13 @@ void sum_of_subset() { // sum of subsetÀÇ °ªÀ» º¸¿©ÁÖ´Â ÇÔ¼ö
 }
 
 int main()
-{ // °á°ú°ª Ãâ·Â
-    printf("¹®Á¦ 11¹ø\n");
+{ // ê²°ê³¼ê°’ ì¶œë ¥
+    printf("ë¬¸ì œ 11ë²ˆ\n");
     printf("\n");
     nqueen_mont();
     printf("============================\n");
     printf("\n");
-    printf("¹®Á¦ 13¹ø\n");
+    printf("ë¬¸ì œ 13ë²ˆ\n");
     printf("\n");
     sum_of_subset();
     
